@@ -54,10 +54,10 @@ public class PlacesManager {
     //region Public methods for working with a catalog sheet
 
     //добавить новое место
-    public void addNewPlace(int width, int length, String landlord, double price, Place.PhoneBrand phoneBrand) {
+    public void addNewPlace(Place.PhoneBrand phoneBrand, int length, int width, String owner, double price) {
         currentId++;
 
-        Place place = new Place(currentId, width, length, landlord, price, phoneBrand);
+        Place place = new Place(currentId,phoneBrand,length, width, owner, price);
 
         places.add(place);
     }
@@ -99,9 +99,9 @@ public class PlacesManager {
         currentId = 0;
         places = new ArrayList<>();
 
-        addNewPlace(75, 160, "Саша", 20.5, Place.PhoneBrand.samsung);
-        addNewPlace(80, 170, "Паша", 23.0, Place.PhoneBrand.honor);
-        addNewPlace(90, 180, "Маша", 44.5, Place.PhoneBrand.apple);
+        addNewPlace(Place.PhoneBrand.samsung,20,100,"Саша",30);
+        addNewPlace(Place.PhoneBrand.honor,30,150,"Паша",40);
+
     }
 
     //сохранить в файл данных
@@ -139,22 +139,3 @@ public class PlacesManager {
 
     //endregion
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -33,7 +33,7 @@ public class MenuManager {
             return;
         }
 
-        String tableHeader = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", "ИД", "Длина(м)", "Ширина(м)", "Покупатель", "Цена(р)", "Телефон");
+        String tableHeader = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", "ИД", "Телефон" , "Длина(м)", "Ширина(м)", "Покупатель", "Цена(р)");
 
         ConsoleHelper.printlnMessage(tableHeader);
 
@@ -41,7 +41,7 @@ public class MenuManager {
 
             Place currentPlace = places.get(i);
 
-            String tableCurrentRow = String.format("%-5d%-10d%-10d%-15s%-14.2f%-10s", currentPlace.getId(), currentPlace.getLength(), currentPlace.getWidth(), currentPlace.getOwner(), currentPlace.getPrice(), currentPlace.getPlanet().getValue());
+            String tableCurrentRow = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", currentPlace.getId(), currentPlace.getPhoneBrand().getValue(),currentPlace.getLength(), currentPlace.getWidth(), currentPlace.getOwner(), currentPlace.getPrice());
 
             ConsoleHelper.printlnMessage(tableCurrentRow);
         }
@@ -73,15 +73,16 @@ public class MenuManager {
 
             switch (action) {
                 case 1: {
-                    int length = ConsoleHelper.inputInt("Введите длину(м): ");
-                    int width = ConsoleHelper.inputInt("Введите ширину(м): ");
-                    String landlord = ConsoleHelper.inputString("Введите покупателя: ");
-                    double price = ConsoleHelper.inputDouble("Введите цену(р): ");
-
                     int planetIndex = ConsoleHelper.inputInt("Введите индекс планеты(0-Самсунг, 1-Хонор, 2-Яблоко): ", 0, 3);
                     Place.PhoneBrand phoneBrand = Place.PhoneBrand.values()[planetIndex];
+                    int length = ConsoleHelper.inputInt("Введите длину(м): ");
+                    int width = ConsoleHelper.inputInt("Введите ширину(м): ");
+                    String owner = ConsoleHelper.inputString("Введите покупателя: ");
+                    double price = ConsoleHelper.inputDouble("Введите цену(р): ");
 
-                    placesManager.addNewPlace(length, width, landlord, price, phoneBrand);
+
+
+                    placesManager.addNewPlace(phoneBrand,length, width, owner, price);
                 }
                 break;
 

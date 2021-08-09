@@ -26,31 +26,32 @@ public class Place implements Serializable {
     //region Fields in the directory
 
     private int id;
+    private PhoneBrand phoneBrand;
     private int length;
     private int width;
     private String owner;
     private double price;
-    private PhoneBrand phoneBrand;
 
     //endregion
 
-    //region Constructor
-
-    public Place(int id, int length, int width, String owner, double price, PhoneBrand phoneBrand) {
+    public Place(int id,PhoneBrand phoneBrand, int length, int width, String owner, double price) {
         this.id = id;
+        this.phoneBrand = phoneBrand;
         this.length = length;
         this.width = width;
         this.owner = owner;
         this.price = price;
-        this.phoneBrand = phoneBrand;
-    }
 
-    //endregion
+    }
 
     //region Getters
 
     public int getId() {
         return id;
+    }
+
+    public PhoneBrand getPhoneBrand() {
+        return phoneBrand;
     }
 
     public int getLength() {
@@ -67,10 +68,6 @@ public class Place implements Serializable {
 
     public double getPrice() {
         return price;
-    }
-
-    public PhoneBrand getPlanet() {
-        return phoneBrand;
     }
 
     //endregion
