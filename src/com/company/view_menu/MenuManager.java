@@ -33,7 +33,7 @@ public class MenuManager {
             return;
         }
 
-        String tableHeader = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", "ИД", "Телефон" , "Длина(м)", "Ширина(м)", "Покупатель", "Цена(р)");
+        String tableHeader = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", "ИД", "Телефон", "Длина(м)", "Ширина(м)", "Покупатель", "Цена(р)");
 
         ConsoleHelper.printlnMessage(tableHeader);
 
@@ -41,7 +41,7 @@ public class MenuManager {
 
             Place currentPlace = places.get(i);
 
-            String tableCurrentRow = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", currentPlace.getId(), currentPlace.getPhoneBrand().getValue(),currentPlace.getLength(), currentPlace.getWidth(), currentPlace.getOwner(), currentPlace.getPrice());
+            String tableCurrentRow = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", currentPlace.getId(), currentPlace.getPhoneBrand().getValue(), currentPlace.getLength(), currentPlace.getWidth(), currentPlace.getOwner(), currentPlace.getPrice());
 
             ConsoleHelper.printlnMessage(tableCurrentRow);
         }
@@ -66,7 +66,7 @@ public class MenuManager {
             ConsoleHelper.printlnMessage("2. Удалить телефон по ИД");
             ConsoleHelper.printlnMessage("3. Загрузить запись из файла");
             ConsoleHelper.printlnMessage("4. Сохранить запись в файл");
-            ConsoleHelper.printlnMessage("5. Изменить цену телефона по ИД");
+            ConsoleHelper.printlnMessage("5. Работа с каталогом");
             ConsoleHelper.printlnMessage("0. Выход");
 
             action = ConsoleHelper.inputInt("Введите номер пункта меню: ", 0, 5);
@@ -81,8 +81,7 @@ public class MenuManager {
                     double price = ConsoleHelper.inputDouble("Введите цену(р): ");
 
 
-
-                    placesManager.addNewPlace(phoneBrand,length, width, owner, price);
+                    placesManager.addNewPlace(phoneBrand, length, width, owner, price);
                 }
                 break;
 
@@ -117,16 +116,41 @@ public class MenuManager {
                 break;
 
                 case 5: {
-                    try {
-                        int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения цены: ");
-                        double price = ConsoleHelper.inputDouble("Введите цену(р): ");
 
-                        placesManager.setNewPlacePriceById(id, price);
-                    } catch (Exception e) {
-                        ConsoleHelper.printlnMessage(e.getMessage());
+                    ConsoleHelper.printlnMessage("    Меню характеристик]:");
+                    ConsoleHelper.printlnMessage("    1. Изменение цены");
+
+                    //todo add other phrases list
+                    ConsoleHelper.printlnMessage("    0. Выход");
+
+                    action = ConsoleHelper.inputInt("    Введите номер пункта меню: ", 0, 2);
+
+                    switch (action) {
+                        case 1: {
+                            try {
+                                int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения цены: ");
+                                double price = ConsoleHelper.inputDouble("Введите цену(р): ");
+
+                                placesManager.setNewPlacePriceById(id, price);
+                            } catch (Exception e) {
+                                ConsoleHelper.printlnMessage(e.getMessage());
+                            }
+                        }
+                        break;
+
+                        case 2: {
+
+                        }
+                        break;
+
+                        case 0: {
+                            isRun = false;
+                        }
+                        break;
                     }
+                    break;
+
                 }
-                break;
 
                 case 0: {
                     isRun = false;
@@ -134,7 +158,7 @@ public class MenuManager {
                 break;
             }
         }
-    }
 
-    //endregion
+        //endregion
+    }
 }
