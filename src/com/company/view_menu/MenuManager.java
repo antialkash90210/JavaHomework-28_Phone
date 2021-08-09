@@ -33,7 +33,7 @@ public class MenuManager {
             return;
         }
 
-        String tableHeader = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", "ИД", "Телефон", "Длина(м)", "Ширина(м)", "Покупатель", "Цена(р)");
+        String tableHeader = String.format("%-5s%-10s%-10s%-10s%-14s%-10s%-20s%-10s", "ИД", "Телефон", "Модель", "Вес(г)", "Покупатель", "Цена(р)", "Аккумулятор(мАч)", "Дата выхода(г)");
 
         ConsoleHelper.printlnMessage(tableHeader);
 
@@ -41,7 +41,7 @@ public class MenuManager {
 
             Place currentPlace = places.get(i);
 
-            String tableCurrentRow = String.format("%-5s%-10s%-10s%-15s%-14s%-10s", currentPlace.getId(), currentPlace.getPhoneBrand().getValue(), currentPlace.getLength(), currentPlace.getWidth(), currentPlace.getOwner(), currentPlace.getPrice());
+            String tableCurrentRow = String.format("%-5s%-10s%-10s%-10s%-14s%-10s%-20s%-10s", currentPlace.getId(), currentPlace.getPhoneBrand().getValue(), currentPlace.getModel(), currentPlace.getWeight(), currentPlace.getOwner(), currentPlace.getPrice(),currentPlace.getBattery(),currentPlace.getReleaseDate());
 
             ConsoleHelper.printlnMessage(tableCurrentRow);
         }
@@ -73,15 +73,16 @@ public class MenuManager {
 
             switch (action) {
                 case 1: {
-                    int planetIndex = ConsoleHelper.inputInt("Введите индекс планеты(0-Самсунг, 1-Хонор, 2-Яблоко): ", 0, 3);
+                    int planetIndex = ConsoleHelper.inputInt("Введите индекс телефона(0-samsung, 1-honor, 2-nokia, 3-huawei, 4-apple): ", 0, 5);
                     Place.PhoneBrand phoneBrand = Place.PhoneBrand.values()[planetIndex];
-                    int length = ConsoleHelper.inputInt("Введите длину(м): ");
-                    int width = ConsoleHelper.inputInt("Введите ширину(м): ");
+                    String model = ConsoleHelper.inputString("Введите модель телефона: ");
+                    int weight = ConsoleHelper.inputInt("Введите вес телефона(г): ");
                     String owner = ConsoleHelper.inputString("Введите покупателя: ");
-                    double price = ConsoleHelper.inputDouble("Введите цену(р): ");
+                    double price = ConsoleHelper.inputDouble("Введите цену телефона(р): ");
+                    int battery = ConsoleHelper.inputInt("Введите аккумулятор телефона(мАч): ");
+                    double releaseDate = ConsoleHelper.inputDouble("Введите дату выхода телефона(г): ");
 
-
-                    placesManager.addNewPlace(phoneBrand, length, width, owner, price);
+                    placesManager.addNewPlace(phoneBrand, model, weight, owner, price,battery, releaseDate);
                 }
                 break;
 
@@ -116,16 +117,20 @@ public class MenuManager {
                 break;
 
                 case 5: {
+                    int innerAction = -1;
 
-                    ConsoleHelper.printlnMessage("    Меню характеристик]:");
+                    ConsoleHelper.printlnMessage("    Меню характеристик:");
                     ConsoleHelper.printlnMessage("    1. Изменение цены");
-
-                    //todo add other phrases list
+                    ConsoleHelper.printlnMessage("    2. Изменение модели");
+                    ConsoleHelper.printlnMessage("    3. Изменение веса");
+                    ConsoleHelper.printlnMessage("    4. Изменение покупателя");
+                    ConsoleHelper.printlnMessage("    5. Изменение аккумулятора");
+                    ConsoleHelper.printlnMessage("    6. Изменение даты выхода");
                     ConsoleHelper.printlnMessage("    0. Выход");
 
-                    action = ConsoleHelper.inputInt("    Введите номер пункта меню: ", 0, 2);
+                    innerAction = ConsoleHelper.inputInt("    Введите номер пункта меню: ", 0, 6);
 
-                    switch (action) {
+                    switch (innerAction) {
                         case 1: {
                             try {
                                 int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения цены: ");
@@ -139,6 +144,66 @@ public class MenuManager {
                         break;
 
                         case 2: {
+                            try {
+                                int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения модели: ");
+                                String model = ConsoleHelper.inputString("Введите модель: ");
+
+                                placesManager.setNewPlaceModelById(id, model);
+                            } catch (Exception e) {
+                                ConsoleHelper.printlnMessage(e.getMessage());
+                            }
+
+                        }
+                        break;
+
+                        case 3: {
+                            try {
+                                int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения веса: ");
+                                int weight = ConsoleHelper.inputInt("Введите вес: ");
+
+                                placesManager.setNewPlaceWeightById(id, weight);
+                            } catch (Exception e) {
+                                ConsoleHelper.printlnMessage(e.getMessage());
+                            }
+
+                        }
+                        break;
+
+                        case 4: {
+                            try {
+                                int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения покупателя: ");
+                                String owner = ConsoleHelper.inputString("Введите покупателя: ");
+
+                                placesManager.setNewPlaceOwnerById(id, owner);
+                            } catch (Exception e) {
+                                ConsoleHelper.printlnMessage(e.getMessage());
+                            }
+
+                        }
+                        break;
+
+                        case 5: {
+                            try {
+                                int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения аккумулятора: ");
+                                int battery = ConsoleHelper.inputInt("Введите аккумулятор: ");
+
+                                placesManager.setNewPlaceBatteryById(id, battery);
+                            } catch (Exception e) {
+                                ConsoleHelper.printlnMessage(e.getMessage());
+                            }
+
+                        }
+                        break;
+
+                        case 6: {
+                            try {
+                                int id = ConsoleHelper.inputInt("Введите ИД телефона для изменения даты выхода: ");
+                                double releaseDate = ConsoleHelper.inputInt("Введите дату выхода: ");
+
+                                placesManager.setNewPlaceReleaseDateById(id, releaseDate);
+                            } catch (Exception e) {
+                                ConsoleHelper.printlnMessage(e.getMessage());
+                            }
 
                         }
                         break;
@@ -161,4 +226,6 @@ public class MenuManager {
 
         //endregion
     }
+
+    //endregion
 }

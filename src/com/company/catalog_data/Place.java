@@ -6,9 +6,11 @@ public class Place implements Serializable {
     //region enum Phone
 
     public enum PhoneBrand {
-        samsung("Самсунг"),
-        honor("Хонор"),
-        apple("Яблоко");
+        samsung("samsung"),
+        honor("honor"),
+        nokia("nokia"),
+        huawei("huawei"),
+        apple("apple");
 
         private final String value;
 
@@ -27,20 +29,24 @@ public class Place implements Serializable {
 
     private int id;
     private PhoneBrand phoneBrand;
-    private int length;
-    private int width;
+    private String model;
+    private int weight;
     private String owner;
     private double price;
+    private int battery;
+    private double releaseDate;
 
     //endregion
 
-    public Place(int id,PhoneBrand phoneBrand, int length, int width, String owner, double price) {
+    public Place(int id, PhoneBrand phoneBrand, String model, int weight, String owner, double price,int battery,double releaseDate) {
         this.id = id;
         this.phoneBrand = phoneBrand;
-        this.length = length;
-        this.width = width;
+        this.model = model;
+        this.weight = weight;
         this.owner = owner;
         this.price = price;
+        this.battery = battery;
+        this.releaseDate = releaseDate;
 
     }
 
@@ -54,12 +60,12 @@ public class Place implements Serializable {
         return phoneBrand;
     }
 
-    public int getLength() {
-        return length;
+    public String getModel() {
+        return model;
     }
 
-    public int getWidth() {
-        return width;
+    public int getWeight() {
+        return weight;
     }
 
     public String getOwner() {
@@ -70,12 +76,40 @@ public class Place implements Serializable {
         return price;
     }
 
+    public double getBattery() {
+        return battery;
+    }
+
+    public double getReleaseDate() {
+        return releaseDate;
+    }
+
     //endregion
 
     //region Setters
 
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setBattery(int battery) {
+        this.battery = battery;
+    }
+
+    public void setReleaseDate(double releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     //endregion

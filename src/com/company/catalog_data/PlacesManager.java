@@ -54,10 +54,10 @@ public class PlacesManager {
     //region Public methods for working with a catalog sheet
 
     //добавить новое место
-    public void addNewPlace(Place.PhoneBrand phoneBrand, int length, int width, String owner, double price) {
+    public void addNewPlace(Place.PhoneBrand phoneBrand, String model, int weight, String owner, double price, int battery, double releaseDate) {
         currentId++;
 
-        Place place = new Place(currentId,phoneBrand,length, width, owner, price);
+        Place place = new Place(currentId,phoneBrand,model, weight, owner, price, battery, releaseDate);
 
         places.add(place);
     }
@@ -77,6 +77,9 @@ public class PlacesManager {
         places.remove(index);
     }
 
+
+    //region changing characteristics
+
     //установить цену нового места по идентификатору
     public void setNewPlacePriceById(int id, double price) throws Exception {
         int index = findIndexById(id);
@@ -87,20 +90,92 @@ public class PlacesManager {
 
         Place findPlace = places.get(index);
 
-        if (price < 0 || price > 150) {
+        if (price < 0 || price > 100000) {
             throw new Exception("Некорректная цена");
         }
 
         findPlace.setPrice(price);
     }
 
+    //установить модель нового места по идентификатору
+    public void setNewPlaceModelById(int id, String model) throws Exception {
+        int index = findIndexById(id);
+
+        if (index == -1) {
+            throw new Exception("Место с таким ID не найдено");
+        }
+
+        Place findPlace = places.get(index);
+
+        findPlace.setModel(model);
+    }
+
+    //установить вес нового места по идентификатору
+    public void setNewPlaceWeightById(int id, int weight) throws Exception {
+        int index = findIndexById(id);
+
+        if (index == -1) {
+            throw new Exception("Место с таким ID не найдено");
+        }
+
+        Place findPlace = places.get(index);
+
+        findPlace.setWeight(weight);
+    }
+
+    //установить покупателя нового места по идентификатору
+    public void setNewPlaceOwnerById(int id, String owner) throws Exception {
+        int index = findIndexById(id);
+
+        if (index == -1) {
+            throw new Exception("Место с таким ID не найдено");
+        }
+
+        Place findPlace = places.get(index);
+
+        findPlace.setOwner(owner);
+    }
+
+    //установить аккумулятор нового места по идентификатору
+    public void setNewPlaceBatteryById(int id, int battery) throws Exception {
+        int index = findIndexById(id);
+
+        if (index == -1) {
+            throw new Exception("Место с таким ID не найдено");
+        }
+
+        Place findPlace = places.get(index);
+
+        findPlace.setBattery(battery);
+    }
+
+    //установить дату выхода нового места по идентификатору
+    public void setNewPlaceReleaseDateById(int id, double releaseDate) throws Exception {
+        int index = findIndexById(id);
+
+        if (index == -1) {
+            throw new Exception("Место с таким ID не найдено");
+        }
+
+        Place findPlace = places.get(index);
+
+        if (releaseDate < 0 || releaseDate > 10000) {
+            throw new Exception("Некорректная");
+        }
+
+        findPlace.setReleaseDate(releaseDate);
+    }
+
+    //endregion
+
+
     //поля по умолчанию дня тестирования
     public void seedPlaces() {
         currentId = 0;
         places = new ArrayList<>();
 
-        addNewPlace(Place.PhoneBrand.samsung,20,100,"Саша",30);
-        addNewPlace(Place.PhoneBrand.honor,30,150,"Паша",40);
+        addNewPlace(Place.PhoneBrand.samsung,"Galaxy",100,"Александр",30000,3000,2019);
+        addNewPlace(Place.PhoneBrand.honor,"X10",150,"Павел",40000,4000,2020);
 
     }
 
